@@ -1,0 +1,201 @@
+* {
+    margin: 0; /* */
+    padding: 0; /* espaçamento de dentro */
+    box-sizing: border-box; /*  calcular distancias */
+    list-style: none; /* tirar pontinhos das listas */
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    background-color: #0f0f1e;
+    color: #fff;
+    font-size: 16px;
+    overflow: hidden; /* nao deixa dar mais scroll na tela */
+}
+
+header {
+    position: fixed;
+    width: 90vw; /* 90vw é 90% do tamanho da tela */
+    top: 0;
+    padding: 20px 50px; /* 20 em cima e embaixo e 50 dos lados */
+    display: flex; /* deixou um do lado do outro */
+    justify-content: space-between;
+    align-items: center;
+    z-index: 3; /* controla a ordem*/
+}
+
+.logo { /* .logo pq é uma classe */
+    font-family: "Orbitron", sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #00f7ff;
+    text-shadow: 0 0 10px rgba(0, 247, 255, 0.5); /*sombreado no texto */
+}
+
+header nav ul {
+    display: flex; /* diexou um do lado do outro */
+    gap: 48px; /*distanciamento entre os itens */
+}
+
+header nav ul li {
+    cursor: pointer;
+    position: relative;
+    padding: 5px 0;
+}
+
+header nav ul li::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #00f7ff;
+    transition: width 0.5s ease;
+}
+
+header nav ul li:hover::after { /*ativar só quando passa o cursor em cima*/
+    width: 100%;
+}
+
+.container {
+    height: 100vh;
+    position: relative;
+    background: linear-gradient(135deg, #0f0f1e 0%, #1f1f3a 100%);
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 247, 255, 0.2) 0%, rgba(15, 15, 30, 0) 70%);
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /*do position até aqui, esquema pra colocar no meio da tela */
+    filter: blur(50px);
+    z-index: 1;
+    animation: pulse 4s infinite alternate; /*4s pro inicio ao fim da animação infinitamente*/
+}
+
+@keyframes pulse { /* animação de pulsar */
+    0% { /*inicio da animação */
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    100% { /*final da animação*/
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+}
+
+.list {
+    width: 80%; /*ocupa 80% da tela */
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.item {
+    position: absolute;
+    inset: 0; /* todas direcoes 0 (bottom, left etc)*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+}
+
+.active {
+    opacity: 1;
+}
+
+.product-image {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2; /*pra ficar na frente do negocio q ta pulsando*/
+}
+
+.product-image img {
+    max-width: 80%;
+    max-height: 60%;
+    filter: drop-shadow(0 0 30px rgba(0, 247, 255, 0.3)); /*efeito sombra azul bebe*/
+    
+     
+}
+
+.content {
+    width: 55%;
+    padding-right: 80px;
+    display: flex;
+    align-items: flex-start; /*ficar na posição do começo, esquerda */
+    justify-content: center;
+    z-index: 2;
+    flex-direction: column;
+}
+
+.tag-Lançamentos {
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #00f7ff;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    
+}
+
+.product-name {
+    font-size: 4.5rem;
+    font-family: "Orbitron", sans-serif;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.description {
+    font-size: 1.1rem;
+    color: #b8b8d0;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 600px;
+}
+
+.botao {
+    padding: 12px 16px;
+    background: linear-gradient(90deg, #00f7ff, #0066ff);
+    border-radius: 30px;
+    color: #000;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer !important;
+    border: none;
+    pointer-events: auto;
+    cursor: pointer !important;
+    position: relative;
+    z-index: 10;
+}
+
+.arrows {
+    position: absolute;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+.arrow-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 247, 255, 0.3);
+}
