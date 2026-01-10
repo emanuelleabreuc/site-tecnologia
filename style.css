@@ -99,7 +99,7 @@ header nav ul li:hover::after { /*ativar só quando passa o cursor em cima*/
     position: relative;
 }
 
-.item {
+.item-active {
     position: absolute;
     top: 0;
     left: 0;
@@ -108,7 +108,7 @@ header nav ul li:hover::after { /*ativar só quando passa o cursor em cima*/
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    opacity: 0;
+    opacity: 1;
 }
 
 .active {
@@ -236,9 +236,9 @@ header nav ul li:hover::after { /*ativar só quando passa o cursor em cima*/
     font-size: 3rem;
     font-weight: 800;
     color: rgba(255, 255, 255, 0.2);
-    position: absolute;
+    position: absolute; /*teste*/
     top: -80px;
-    left: 50%;
+    left: 40%;
 }
 
 
