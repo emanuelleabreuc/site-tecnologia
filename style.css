@@ -99,54 +99,60 @@ header nav ul li:hover::after { /*ativar só quando passa o cursor em cima*/
     position: relative;
 }
 
-.item-active {
+.item {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: auto; /* move the block down 45% from the top */
+    inset: 0;
     display: flex;
+    opacity: 0;
+    align-items: center;
     justify-content: center;
-    align-items: flex-start;
-    opacity: 1;
+
+    transform: translateX(100vw);
+    transition: transform 0.7s ease-in-out, opacity 0.7s ease;
 }
 
 .active {
     opacity: 1;
+    transform: translateX(0);
 }
 
 .product-image {
     width: 35%;
     height: 100%;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     position: relative;
     z-index: 2; /*pra ficar na frente do negocio q ta pulsando*/
-    margin-top: 150px; 
+    
 }
 
 .product-image img {
-    width: 460px;
-    max-width: 100%;
-    height: auto;
+    max-width: 80%;
+    max-height: 60%;
     filter: drop-shadow(0 0 30px rgba(0, 247, 255, 0.3)); /*efeito sombra azul bebe*/
-    margin-top: 100px;
     
-     
+    transform: translateX(200px);
+    opacity: 0;
+    transition-delay: 0.5s;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.active .product-image img {
+    transform: translateX(0);
+    opacity: 1;
+    
 }
 
 .content {
-    width: 65%;
+    width: 55%;
     padding-right: 80px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     z-index: 2;
-    margin-top: -24%; /* move o conteudo pra baixo */
-    margin-right: 500px;
-    margin-left: 700px;
+    
     
 }
 
@@ -186,11 +192,11 @@ header nav ul li:hover::after { /*ativar só quando passa o cursor em cima*/
     cursor: pointer !important;
     border: none;
     pointer-events: auto;
-    cursor: pointer !important;
     position: relative;
     z-index: 10;
-    margin-left: 45%;
-    
+    margin-top: 16px;
+    margin-left: 0;
+    align-self: flex-start;
 }
 
 .arrows {
