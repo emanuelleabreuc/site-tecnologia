@@ -164,3 +164,39 @@ document.querySelectorAll('.botao-whats[data-produto]').forEach(link => {
 
 document.getElementById('whats-flutuante').href =
     linkWhats('Olá! Vim pelo site da E-tech Store e quero saber mais sobre os produtos.');
+
+/* ================== MENU NO CELULAR ================== */
+const menuBtn = document.getElementById('menu-btn');
+const menu = document.getElementById('menu');
+
+menuBtn.addEventListener('click', () => {
+    const aberto = menu.classList.toggle('aberto');
+    menuBtn.classList.toggle('aberto', aberto);
+    menuBtn.setAttribute('aria-expanded', String(aberto));
+});
+
+menu.querySelectorAll('li').forEach(li => li.addEventListener('click', () => {
+    menu.classList.remove('aberto');
+    menuBtn.classList.remove('aberto');
+    menuBtn.setAttribute('aria-expanded', 'false');
+}));
+
+/* ================== DESLIZAR O DEDO (SWIPE) ================== */
+let toqueInicioX = null;
+let toqueInicioY = null;
+
+list.addEventListener('touchstart', e => {
+    toqueInicioX = e.touches[0].clientX;
+    toqueInicioY = e.touches[0].clientY;
+}, { passive: true });
+
+list.addEventListener('touchend', e => {
+    if (toqueInicioX === null) return;
+    const dx = e.changedTouches[0].clientX - toqueInicioX;
+    const dy = e.changedTouches[0].clientY - toqueInicioY;
+    /* só conta como swipe se o movimento for mais horizontal que vertical */
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        update(dx < 0 ? 1 : -1);
+    }
+    toqueInicioX = null;
+}, { passive: true });
