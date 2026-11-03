@@ -78,6 +78,7 @@ header nav ul li:hover::after { /*ativar só quando passa o cursor em cima*/
     transform: translate(-50%, -50%); /*do position até aqui, esquema pra colocar no meio da tela */
     filter: blur(50px);
     z-index: 1;
+    pointer-events: none; /* o brilho nao bloqueia os cliques nos botoes */
     animation: pulse 4s infinite alternate; /*4s pro inicio ao fim da animação infinitamente*/
 }
 
@@ -97,6 +98,7 @@ header nav ul li:hover::after { /*ativar só quando passa o cursor em cima*/
     height: 100%;
     margin: 0 auto;
     position: relative;
+    z-index: 2; /* fica na frente do brilho pulsante */
 }
 
 .item {
@@ -282,4 +284,265 @@ header nav ul li:hover::after { /*ativar só quando passa o cursor em cima*/
 .dot.active {
     background-color: #00f7ff;
     box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+}
+
+/* ================== BOTÕES DE AÇÃO ================== */
+.acoes {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.botao {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.botao:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0, 247, 255, 0.5);
+}
+
+.botao-whats {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 12px 20px;
+    border-radius: 30px;
+    background: #25d366;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+    animation: pulsar-whats 2s infinite;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.botao-whats:hover {
+    background: #1ebe5b;
+    transform: translateY(-2px);
+}
+
+.botao-whats.grande {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 20px;
+    font-size: 1.05rem;
+    text-align: center;
+}
+
+@keyframes pulsar-whats {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+    70% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* ================== BOTÃO FLUTUANTE ================== */
+.whats-flutuante {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px 12px 14px;
+    border-radius: 40px;
+    background: #25d366;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+    animation: pulsar-whats 2s infinite;
+    transition: transform 0.2s ease;
+}
+
+.whats-flutuante:hover {
+    transform: scale(1.05);
+}
+
+/* ================== MODAL ================== */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal.aberto {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(5, 5, 15, 0.8);
+    backdrop-filter: blur(6px);
+}
+
+.modal-box {
+    position: relative;
+    width: min(1000px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    gap: 32px;
+    padding: 36px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #16162b 0%, #232347 100%);
+    border: 1px solid rgba(0, 247, 255, 0.25);
+    box-shadow: 0 0 40px rgba(0, 247, 255, 0.15);
+    transform: translateY(30px) scale(0.97);
+    transition: transform 0.3s ease;
+}
+
+.modal.aberto .modal-box {
+    transform: translateY(0) scale(1);
+}
+
+.modal-fechar {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.modal-fechar:hover {
+    border-color: #00f7ff;
+    color: #00f7ff;
+}
+
+.modal-galeria {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.galeria-principal {
+    aspect-ratio: 1;
+    border-radius: 16px;
+    overflow: hidden;
+    background: radial-gradient(circle, rgba(0, 247, 255, 0.15) 0%, rgba(15, 15, 30, 0) 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.galeria-principal img,
+.miniatura img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(0, 247, 255, 0.3));
+    transition: transform 0.4s ease;
+}
+
+/* visualizações de detalhe (zoom em partes do produto) */
+.vista-detalhe-topo { transform: scale(1.9); transform-origin: 50% 20%; }
+.vista-detalhe-base { transform: scale(1.9); transform-origin: 50% 85%; }
+
+.galeria-miniaturas {
+    display: flex;
+    gap: 10px;
+}
+
+.miniatura {
+    width: 76px;
+    height: 76px;
+    padding: 6px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid transparent;
+}
+
+.miniatura.ativa,
+.miniatura:hover {
+    border-color: #00f7ff;
+}
+
+.modal-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-titulo {
+    font-family: "Orbitron", sans-serif;
+    font-size: 2.4rem;
+    line-height: 1.1;
+    margin-bottom: 16px;
+}
+
+.modal-descricao {
+    color: #b8b8d0;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+.modal-destaques {
+    margin-bottom: 10px;
+}
+
+.modal-destaques li {
+    position: relative;
+    padding-left: 26px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.modal-destaques li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #00f7ff;
+    font-weight: 800;
+}
+
+.modal-obs {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: #8f8fb0;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .modal-box {
+        flex-direction: column;
+        padding: 28px 20px;
+    }
+
+    .modal-titulo {
+        font-size: 1.8rem;
+    }
+
+    .whats-flutuante span {
+        display: none;
+    }
+
+    .whats-flutuante {
+        padding: 14px;
+    }
 }
